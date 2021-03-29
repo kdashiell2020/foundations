@@ -11,18 +11,19 @@ export default async function handler(req, res) {
     case 'POST':
       const org = await prisma.organization.create({
         data: {
-          url: body.organization, name: body.organization
+          url: body.organization,
+          name: body.organization,
         },
-      })
+      });
 
-      body.organization = org
+      body.organization = org;
 
       const result = await prisma.user.create({
         data: {
           ...body,
         },
-      })
-      console.log('xxxx:  ',result)
+      });
+      console.log('xxxx:  ', result);
       res.send(body);
       break;
 
