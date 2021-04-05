@@ -9,11 +9,10 @@ export default async function handler(req, res) {
 
   switch (method) {
     case 'POST':
-      const org = await prisma.organization.create({
-        data: {
-          url: body.organization,
-          name: body.organization,
-        },
+      const org = await prisma.organization.upsert({
+        where: { name: body.organization },
+        update: {},
+        create: { url: body.organization, name: body.organization },
       });
 
       delete body.organization;
