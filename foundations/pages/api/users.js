@@ -16,7 +16,8 @@ export default async function handler(req, res) {
         },
       });
 
-      body.organization = org;
+      delete body.organization;
+      body.organizationId = org.id;
 
       const result = await prisma.user.create({
         data: {
