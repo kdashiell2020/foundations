@@ -27,18 +27,25 @@ async function createUser(params) {
   return result;
 }
 
+async function getUsers(params) {
+  const users = await prisma.user.findMany()
+  return users;
+};
+
 export default async function handler(req, res) {
   const { method, body } = req;
+  let result;
 
   switch (method) {
     case 'POST':
-      let result = await createUser(body);
+      result = await createUser(body);
       console.log('xxxx:  ', result);
       res.send(body);
       break;
 
     case 'GET':
-      res.send('got me');
+      result = await getUsers(body)
+      res.send(result);
       break;
 
     default:
