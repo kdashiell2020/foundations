@@ -1,28 +1,38 @@
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
-// const handleGet = () => {}
+async function findOrCreateOrganization(params) {
+  const org = await prisma.organization.upsert({
+    where: { url: params.url },
+    update: {},
+    create: { url: params.url, name: params.name },
+  });
+  return org;
+}
 
-// Use Prisma Client to send queries to your database
+async function createUser(params) {
+  const org = await findOrCreateOrganization({
+    url: params.organization,
+    name: params.organization
+  });
+
+  const userParams = {
+    email: params.email,
+    full_name: params.full_name,
+    password: params.password,
+    phone: params.phone,
+    organizationId: org.id
+  };
+  const result = await prisma.user.create({ data: userParams });
+  return result;
+}
+
 export default async function handler(req, res) {
   const { method, body } = req;
 
   switch (method) {
     case 'POST':
-      const org = await prisma.organization.upsert({
-        where: { name: body.organization },
-        update: {},
-        create: { url: body.organization, name: body.organization },
-      });
-
-      delete body.organization;
-      body.organizationId = org.id;
-
-      const result = await prisma.user.create({
-        data: {
-          ...body,
-        },
-      });
+      let result = await createUser(body);
       console.log('xxxx:  ', result);
       res.send(body);
       break;
