@@ -1,7 +1,7 @@
 import React, { Component, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-const RegisterForm = () => {
+const RegisterForm = ({ orgUrl }) => {
   const { register, handleSubmit, errors } = useForm();
   const [user, setUser] = useState({
     full_name: '',
@@ -9,7 +9,7 @@ const RegisterForm = () => {
     password: '',
     // confirmPassword: '',
     phone: '',
-    organization: '',
+    organization: orgUrl,
   });
 
   const handleChange = (e) => {
