@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@prisma/client": "^2.18.0",
+    "axios": "^0.21.1",
     "mysql": "^2.18.1",
     "next": "10.0.8",
     "react": "17.0.1",

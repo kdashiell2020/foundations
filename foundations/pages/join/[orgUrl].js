@@ -2,13 +2,31 @@ import Head from 'next/head'
 import styles from '../../styles/Home.module.css'
 import Registration from '../Registration'
 
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { useRouter } from 'next/router'
 
 const Home = () => {
   const router = useRouter()
   const { orgUrl } = router.query
+  let orgExists;
 
-  return (
+  useEffect(async () => {
+    const result = await axios(
+      'http://localhost:3000/api/organizations',
+    );
+    console.log('inside effect')
+    console.log(orgUrl);
+    orgExists = result.data.some((org) => org.url === orgUrl);
+    console.log(result);
+    console.log(result.data);
+    console.log(orgExists);
+  }, [orgUrl]);
+
+  console.log('in component');
+  console.log(orgExists);
+
+  return orgExists ? (
     <div className={styles.container}>
       <Head>
         <title>Create Next App</title>
@@ -31,6 +49,10 @@ const Home = () => {
           <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
         </a>
       </footer>
+    </div>
+  ) : (
+    <div>
+      Oops
     </div>
   )
 }
