@@ -1,9 +1,9 @@
 import RegisterForm from '../components/RegisterForm'
 
-const Registration = () => {
+const Registration = ({ orgUrl }) => {
   return (
     <div>
-      <RegisterForm />
+      <RegisterForm orgUrl={ orgUrl }/>
     </div>
   )
 }

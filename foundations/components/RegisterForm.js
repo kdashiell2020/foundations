@@ -1,7 +1,7 @@
 import React, { Component, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-const RegisterForm = () => {
+const RegisterForm = ({ orgUrl }) => {
   const { register, handleSubmit, errors } = useForm();
   const [user, setUser] = useState({
     full_name: '',
@@ -9,7 +9,7 @@ const RegisterForm = () => {
     password: '',
     // confirmPassword: '',
     phone: '',
-    organization: '',
+    organization: orgUrl,
   });
 
   const handleChange = (e) => {
@@ -106,6 +106,8 @@ const RegisterForm = () => {
           placeholder="Name of Organization."
           id="organization"
           onChange={handleChange}
+          value={orgUrl}
+          disabled={orgUrl != undefined}
         />
         {errors.organization && <p>{errors.organization.message}</p>}
       </div>
