@@ -4,13 +4,6 @@ import Registration from '../Registration'
 
 import { useRouter } from 'next/router'
 
-const Post = () => {
-  const router = useRouter()
-  const { org_url } = router.query
-
-  return <p>Org Url: {org_url}</p>
-}
-
 const Home = () => {
   const router = useRouter()
   const { orgUrl } = router.query
