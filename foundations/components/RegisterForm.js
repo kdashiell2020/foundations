@@ -106,6 +106,8 @@ const RegisterForm = ({ orgUrl }) => {
           placeholder="Name of Organization."
           id="organization"
           onChange={handleChange}
+          value={orgUrl}
+          disabled={orgUrl != undefined}
         />
         {errors.organization && <p>{errors.organization.message}</p>}
       </div>
