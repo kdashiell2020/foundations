@@ -8,25 +8,32 @@ import { useRouter } from 'next/router'
 
 const Home = () => {
   const router = useRouter()
+  const [org, setOrg] = useState(false);
+
   const { orgUrl } = router.query
-  let orgExists;
+  // let orgExists;
 
   useEffect(async () => {
     const result = await axios(
       'http://localhost:3000/api/organizations',
     );
-    console.log('inside effect')
-    console.log(orgUrl);
-    orgExists = result.data.some((org) => org.url === orgUrl);
-    console.log(result);
-    console.log(result.data);
-    console.log(orgExists);
+
+    // console.log('inside effect')
+    // console.log(orgUrl);
+    const orgExist = result.data.some((org) => org.url === orgUrl);
+    if (orgExist){
+      setOrg(true)
+    }
+
+    // console.log(result);
+    // console.log(result.data);
+    // console.log(orgExists);
   }, [orgUrl]);
 
   console.log('in component');
-  console.log(orgExists);
+  console.log(org);
 
-  return orgExists ? (
+  return org ? (
     <div className={styles.container}>
       <Head>
         <title>Create Next App</title>
@@ -52,7 +59,7 @@ const Home = () => {
     </div>
   ) : (
     <div>
-      Oops
+      Oops {/* Set up err page */}
     </div>
   )
 }
