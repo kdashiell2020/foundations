@@ -11,7 +11,7 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-
+        <h3>Create an Organization</h3>
         <Registration />
 
       </main>
